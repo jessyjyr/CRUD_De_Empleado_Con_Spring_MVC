@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Listado de los Empleados de la Empresa</h1>
+
+    <table>
+        <thead>
+            <tr>
+                
+                <th>Nombre</th>
+                <th>Primer Apellido</th>
+                <th>Segundo Apellido</th>
+                <th>Salario</th>
+                <th>Fecha de Alta</th>
+                <th>Departamento</th>
+                <th>Genero</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="empleado : ${empleados}">
+                <td th:text="${empleado.nombre}"></td>
+                <td th:text="${empleado.primerApellido}"></td>
+                <td th:text="${empleado.segundoApellido}"></td>
+                <td th:text="${empleado.salario}"></td>
+                <td th:text="${empleado.fechaAlta}"></td>
+                <td th:text="${empleado.departamento.nombre}"></td>
+                <td th:text="${empleado.genero}"></td>
+                <td><a th:href="@{/empleado/frmActualizar/}+${empleado.id}">Modificar</a></td>
+                <td><a th:href="@{/empleado/empleadoDetalles/}+${empleado.id}">Detalles</a></td>
+                <td><a th:href="@{/empleado/eliminarEmpleado/}+${empleado.id}">Eliminar</a></td>
+                 <td></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
