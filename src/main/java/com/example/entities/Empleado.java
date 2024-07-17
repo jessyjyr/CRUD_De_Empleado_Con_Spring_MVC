@@ -42,6 +42,8 @@ public class Empleado implements Serializable {
     @Enumerated(EnumType.STRING)
     private Genero genero;
 
+    private String foto;
+
     //Relacion con Dpto: Un empleado trabaja en un solo Dpto
     //Muchos empleados trabajan en un solo Dpto, por eso usamos la relación:
     // @Many to one

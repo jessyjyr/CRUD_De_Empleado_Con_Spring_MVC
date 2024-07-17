@@ -1,5 +1,9 @@
 package com.example.controllers;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -19,6 +23,7 @@ import com.example.services.EmpleadoService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 
 
@@ -64,7 +69,34 @@ model.addAttribute("departamentos", departamentos);
 
 //Metodo que recibe por POST los datos de los controles del formulario de alta de empleado
 @PostMapping("/persistirEmpleado")
-public String altaModificacionDeEmpleado(@ModelAttribute Empleado empleado) {
+public String persistir(@ModelAttribute Empleado empleado,
+    @RequestParam(name = "imagen", required = false) MultipartFile archivoDeImagen) {
+        if(!archivoDeImagen.isEmpty()) {
+
+    //La ruta relativa de la carpeta donde se va a almacenar la foto
+    Path rutaRelativa = Paths.get("src\\main\\resources\\static\\imagenes\\");
+    
+    //Necesitamos La ruta absoluta 
+    String rutaAbsoluta = rutaRelativa.toFile().getAbsolutePath();
+
+    //Y, finalmente la ruta completa 
+    Path rutaCompleta = Paths.get(rutaAbsoluta + "\\" + 
+    archivoDeImagen.getOriginalFilename());
+
+    //Manejar la imagen (archivoDeImagen)
+    try {
+        byte[] archivoDeImagenEnBytes = archivoDeImagen.getBytes();
+        Files.write(rutaCompleta, archivoDeImagenEnBytes);
+
+    //Establecer (setter) el nombre de la imagen recibida ala propiedad foto del empleado
+    empleado.setFoto(archivoDeImagen.getOriginalFilename());
+    } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }
+
+    }
+
     empleadoService.persistirUpdateEmpleado(empleado);
 
     return "redirect:/empleado/all";
