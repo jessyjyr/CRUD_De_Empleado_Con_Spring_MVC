@@ -88,4 +88,13 @@ model.addAttribute("departamentos", departamentos);
     return "altaModificacionEmpleado";
 }
 
+//Metodo para eliminar un empleado
+
+    @GetMapping("/eliminarEmpleado/{id}")
+    public String deleteEmpleado(@PathVariable(name = "id") int idEmpleado) {
+        empleadoService.deleteEmpleado(idEmpleado);
+        return "redirect:/empleado/all";
+
+
+}
 }
