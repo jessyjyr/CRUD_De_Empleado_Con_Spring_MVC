@@ -126,7 +126,19 @@ model.addAttribute("departamentos", departamentos);
     public String deleteEmpleado(@PathVariable(name = "id") int idEmpleado) {
         empleadoService.deleteEmpleado(idEmpleado);
         return "redirect:/empleado/all";
+        
+    }
+    //Metodo que muestra los detalles de un empleado, en este caso de detalles 
+    //solo existe la foto 
+    
+    @GetMapping("/empleadoDetalles/{id}")
+    public String empleadoDetalles(@PathVariable(name = "id") int idEmpleado, Model model) {
+
+        Empleado empleado = empleadoService.getEmpleado(idEmpleado);
+        model.addAttribute("empleado", empleado);
+
+        return "detallesDelEmpleado";
+    }
+}
 
 
-}
-}

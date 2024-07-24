@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 th:text="'Detalle del empleado: ' + ${empleado.nombre}"></h1>
+
+    <img alt="imagen de un empleado" th:src="@{/imagenes/}+${empleado.foto}">
+
+    
+
+    
+</body>
+</html>
